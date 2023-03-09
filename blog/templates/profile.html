@@ -1,0 +1,147 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">KISHOR BLOGS</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <div class="container mx-3">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link {% block homeactive %} {% endblock homeactive %}" aria-current="page" href="/blogs/">Home</a>
+              </li>
+              {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link {% block add_blogs_active %} {% endblock add_blogs_active %}" href="/add_blogs/">Add Blogs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" href="#">Hello {{request.user}}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link {% block profileactive %} {% endblock profileactive %}" href="/profile/">Profile</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout/">Logout</a>
+              </li>
+              {% else %}
+              <li class="nav-item">
+                <a class="nav-link {% block registeractive %} {% endblock registeractive %}" href="/register/">Register</a>
+              </li>
+               <li class="nav-item">
+                <a class="nav-link {% block loginactive %} {% endblock loginactive %}" href="/login/">Login</a>
+              </li>
+              {% endif %}
+            </ul>
+            </div>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+<div class="container profile">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="profile-img">
+                {% if user.profile.image %}
+                <img src="{{ user.profile.image.url }}" alt="" width="310px" height="270px">
+                {% endif %}
+                <!-- <img src="{% static 'media/profile_pics/profilephoto.png' %}" alt="" width="310px" height="270px"> -->
+            </div>
+        </div>
+        <div class="col-md-8">
+            <div class="profile-tab">
+                <div class="tab-pane">
+                    <br><br>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Username:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Full Name:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user.get_full_name}}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user.email}}</p>
+                        </div>
+                    </div>
+                    <!-- {% if user.profile.phone_no %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Phone Number:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user.profile.phone_no}}</p>
+                        </div>
+                    </div>
+                    {% endif %}-->
+                    {% if user.profile.bio %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Bio:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>{{user.profile.bio}}</p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if user.profile.linkedin %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Linkedin:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p><a href="{{user.profile.linkedin}}">{{user.profile.linkedin}}</a></p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if user.profile.instagram %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Instagram:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p><a href="{{user.profile.instagram}}">{{user.profile.instagram}}</a></p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if user.profile.facebook %}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Facebook:</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p><a href="{{user.profile.facebook}}">{{user.profile.facebook}}</a></p>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+                <a href="/edit_profile/" class="btn btn-secondary">Edit Profile</a>
+            </div>
+        </div>
+</div>
+</div>
+<br>
+
+</body>
